@@ -41,10 +41,10 @@ button{
 #no{
   background:white;
   color:#ff2e88;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
+  position:relative;
+}
+#no span{
+  margin-left:10px;
 }
 .heart{
   position:absolute;
@@ -58,6 +58,12 @@ button{
   50%{opacity:1;}
   100%{transform:translateY(-10vh) scale(1.2); opacity:0;}
 }
+#babyMsg{
+  margin-top:20px;
+  font-size:28px;
+  color:white;
+  text-shadow:1px 1px 5px rgba(0,0,0,0.4);
+}
 </style>
 </head>
 <body>
@@ -65,34 +71,29 @@ button{
 <h1 id="question">Məni sevirsən? ❤️</h1>
 
 <button id="yes" onclick="yesClick()">Hə ❤️</button>
-<button id="no" onmouseover="moveButton()" onclick="noClick()">Yox 😅</button>
+<button id="no" onclick="noClick()">Yox <span>😢</span></button>
+
+<div id="babyMsg"></div>
 
 <script>
-// Hə düyməsi kliklənəndə romantik mesaj və animasiya
+var asked = false;
+
+// Hə düyməsi kliklənəndə mesaj və ürək animasiyası
 function yesClick(){
-  document.body.innerHTML = `
-  <h1 style="margin-top:150px;color:white;font-size:36px;text-shadow:2px 2px 15px rgba(0,0,0,0.5);">
-    Məndə səni sevirəm, ömrüm ❤️💍✨
-  </h1>
-  `;
-  // Ürək animasiyası
+  document.getElementById("question").innerText = "Məndə səni sevirəm, ömrüm ❤️💍✨";
+  document.getElementById("babyMsg").innerText = "baby 💖";
   setInterval(createHeart,300);
 }
 
-// Yox düyməsi kliklənəndə mesaj və düymə qaçışı
+// Yox düyməsi kliklənəndə mesaj dəyişir və yenidən sorğu göstərir
 function noClick(){
-  alert("Fikir elə… Sən məni tanıyırsan da 🥺");
-}
-
-// “No” düyməsini hover/touch zamanı tullanması
-function moveButton(){
-  var button = document.getElementById("no");
-  var maxX = window.innerWidth - button.offsetWidth - 20;
-  var maxY = window.innerHeight - button.offsetHeight - 20;
-  var x = Math.random() * maxX;
-  var y = Math.random() * maxY;
-  button.style.left = x + "px";
-  button.style.top = y + "px";
+  document.getElementById("question").innerText = "Çoxlu pulum var, səni hoppalarda gəzdirəcəm 💸✨";
+  document.getElementById("babyMsg").innerText = "";
+  
+  // 1.5 saniyə sonra əvvəlki sual təkrar göstərilir
+  setTimeout(function(){
+    document.getElementById("question").innerText = "Məni sevirsən? ❤️";
+  },1500);
 }
 
 // Ürək animasiyası funksiyası
